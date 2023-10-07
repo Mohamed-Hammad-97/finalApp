@@ -1,0 +1,8 @@
+<div class="container py-5">
+    <input type="text" [(ngModel)]="searchKey" class="form-control w-75 mx-auto my-3" placeholder="Search....">
+    <div class="row">
+        <div class="col-md-3" *ngFor="let product of allProduct | search : searchKey">
+            <app-product-item [product]="product"></app-product-item>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="container my-5 bg-main-light p-5">
+    
+    <div class="d-flex justify-content-between mb-5" *ngIf="cartDetails?.data ; else empty">
+        <h2 class="mb-3">Cart Details:</h2>
+        <button class="btn bg-main " >
+            <a [routerLink]="['/checkout/',cartDetails.data._id]" class="text-white">Countain To Pay</a>
+        </button>
+    </div>
+    <ng-template #empty>
+        <h2 class="mb-3">Cart Details:</h2>
+        <h1>Your Cart Is Empty</h1>
+    </ng-template>
+    <div *ngIf="cartDetails?.data">
+        
+        <div class="d-flex justify-content-between px-3">
+            <h4>Total items: <span class="text-main">{{cartDetails.data.products.length}}</span></h4>
+            <h4>Total Price: <span class="text-main">{{cartDetails.data.totalCartPrice}}</span></h4>
+        </div>
+        <div class="row border-bottom my-3 d-flex align-items-center p-2 " *ngFor="let product of cartDetails.data.products | filterProducts">
+            <div class="col-md-2">
+                <img [src]="product.product.imageCover" class="w-100" alt="">
+            </div>
+            <div class="col-md-10 d-flex justify-content-between">
+                <div class="item">
+                    <h4>{{product.product.title}}</h4>
+                    <p class="text-main">{{product.product.category.name}}</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <p class="text-main mb-0">{{product.price}} EGP</p>
+                        <button (click)="removeProduct(product.product.id)" class="btn p-0 text-danger ms-3"> <i class="fa fa-regular fa-trash-can"></i> Remove</button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-update" (click)="updataProductCount(product.count-1 , product.product.id)">-</button>
+                    <span class="mx-2">{{product.count}}</span>
+                    <button class="btn btn-update" (click)="updataProductCount(product.count+1 , product.product.id)">+</button>
+                </div>
+            </div>
+            
+        </div>
+        <div>
+            <button class="btn bg-main text-white d-block mx-auto" (click)="clearCart(cartDetails.data._id)" >Clear Your Cart</button>
+        </div>
+    </div>
+</div>

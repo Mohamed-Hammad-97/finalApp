@@ -1,0 +1,52 @@
+<h1 class="py-5 text-main text-center fw-bolder">All Brands</h1>
+<div class="container">
+    <div class="row gy-5">
+        <div class="col-md-3" (click)="openModal(); brandDataImage = brands.image ; brandDataName = brands.name" *ngFor="let brands of allBrands | paginate: { id: 'foo',
+                                                      itemsPerPage: pageSize,
+                                                      currentPage: page,
+                                                      totalItems: total }">
+            <div class="card product">
+                <div>
+                    <img [src]="brands.image" class="card-img-top w-100" alt="...">
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-center text-main h3 fw-bolder p-2">{{brands.name}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center my-4">
+            <pagination-controls id="foo" (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)"
+                [maxSize]="9" [directionLinks]="true" [autoHide]="true" [responsive]="true" previousLabel="Previous"
+                nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+        </div>
+
+        <div class="modal" tabindex="-1" id="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h1 class=" text-main fw-bolder p-2">{{brandDataName}}</h1>
+                                <p class="card-text p-2">{{brandDataName}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <img [src]="brandDataImage" class="card-img-top w-100" [alt]="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

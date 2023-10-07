@@ -1,0 +1,43 @@
+<div class="container my-5 w-75">
+    <h2 class="mb-3">Login Now:</h2>
+
+    <div *ngIf="apiError" class="alert alert-danger">
+        {{apiError}}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+       
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" formControlName="email" class="form-control mb-3">
+
+            <div *ngIf="loginForm.get('email')?.errors && (loginForm.get('email')?.touched ||isNotValidForm)"
+                class="alert alert-danger">
+                <p *ngIf="loginForm.get('email')?.getError('required')" class="mb-0">Email is Reguired</p>
+                <p *ngIf="loginForm.get('email')?.getError('email')" class="mb-0">Email is Not Valid</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" formControlName="password" class="form-control mb-3">
+
+            <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.touched || isNotValidForm)"
+                class="alert alert-danger">
+                <p *ngIf="loginForm.get('password')?.getError('required')" class="mb-0">password is Reguired</p>
+                <p *ngIf="loginForm.get('password')?.getError('minlength')" class="mb-0">password minLength is 3</p>
+                <p *ngIf="loginForm.get('password')?.getError('maxlength')" class="mb-0">password maxLength is 8</p>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a class="cursor-pointer link-primary" routerLink="/forgotPassword" *ngIf="!isLoading" >Forgot Password</a>
+            <button type="submit" class="btn btn-success ">
+                <i *ngIf="isLoading" class="fa fa-spinner fa-spin"></i>
+                <span *ngIf="!isLoading">Login</span>
+            </button>
+        </div>
+        
+        
+    </form>
+</div>
